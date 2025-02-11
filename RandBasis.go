@@ -4,7 +4,7 @@ import (
 	"math/rand"
 )
 
-func RandBasis(n int) {
+func RandBasis(n int) Lattice {
 	var mat Lattice
 
 	mat.NumRows = n
@@ -18,4 +18,6 @@ func RandBasis(n int) {
 		mat.Basis[i][i] = 1
 		mat.Basis[i][0] = rand.Int63n(99999) + 10000
 	}
+
+	return mat
 }

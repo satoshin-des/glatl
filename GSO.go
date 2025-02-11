@@ -5,6 +5,7 @@ import (
 	"github.com/satoshin-des/glal/vec"
 )
 
+// GSO returns squared norm of GSO-matrix and GSO-coefficient matrix
 func GSO(b Lattice) (vec.Vector, mat.Matrix) {
 	gsoB := vec.ZeroVec(b.NumRows)
 	gsoMat := mat.ZeroMat(b.NumRows, b.NumCols)
@@ -29,13 +30,16 @@ func GSO(b Lattice) (vec.Vector, mat.Matrix) {
 
 			mu.At[i][j] = dotTemp / normTemp
 
-			normTemp = 0
 			for k := 0; k < b.NumCols; k++ {
 				gsoMat.At[i][k] -= mu.At[i][j] * gsoMat.At[j][k]
-				normTemp += gsoMat.At[i][k] * gsoMat.At[i][k]
 			}
-			gsoB.At[i] = normTemp
 		}
+
+		normTemp = 0
+		for j := 0; j < b.NumCols; j++ {
+			normTemp += gsoMat.At[i][j] * gsoMat.At[i][j]
+		}
+		gsoB.At[i] = normTemp
 	}
 
 	return gsoB, mu
