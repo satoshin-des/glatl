@@ -1,8 +1,16 @@
 package glatl
 
+// DeepLLL computes delta-DeepLLL reduced basis
+//
+// panic if delta < 1/4 or delta > 1
+//
+// C. P. Schnorr, M. Euchner. Lattice basis reduction: Improved practical algorithms and solving subset sum problem.(1994)
 func DeepLLL(b Lattice, delta float64) {
+	if delta < 0.25 || delta > 1 {
+		panic("reduction parameter must be in [1/4, 1]")
+	}
+
 	var temp float64
-	var t int64
 	gsoB, mu := GSO(b)
 
 	for k := 1; k < b.NumRows; {
@@ -20,13 +28,7 @@ func DeepLLL(b Lattice, delta float64) {
 				temp -= mu.At[k][i] * mu.At[k][i] * gsoB.At[i]
 				i++
 			} else {
-				for l := 0; l < b.NumCols; l++ {
-					t = b.Basis[k][l]
-					for j := k; j > i; j-- {
-						b.Basis[j][l] = b.Basis[j-1][l]
-					}
-					b.Basis[i][l] = t
-				}
+				DeepIns(b, i, k)
 
 				gsoB, mu = GSO(b)
 

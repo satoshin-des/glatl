@@ -1,7 +1,15 @@
 package glatl
 
-// LLL computes LLL-reduced basis
+// LLL computes delta-LLL-reduced basis
+//
+// panic if delta < 1/4 or delta > 1
+//
+// A. K. Lenstra, H. W. Lenstra, L. Lovasz. Factoring polynomials with rational coefficients. 1982
 func LLL(b Lattice, delta float64) {
+	if delta < 0.25 || delta > 1 {
+		panic("reduction parameter must be in [1/4, 1]")
+	}
+
 	var tempInt int64
 	var tempFloat, nu float64
 
