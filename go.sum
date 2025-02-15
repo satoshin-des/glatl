@@ -1,3 +1,5 @@
+github.com/satoshin-des/glal v0.0.1 h1:JLrabryLEvJQxucnluL+Q4AKoYfupHcJ0JCHTHnqnIo=
+github.com/satoshin-des/glal v0.0.1/go.mod h1:uf/DXQXvsTRtpXExw2QXwnn5bvfQKds4Qk55a6fsSw4=
 github.com/satoshin-des/glal/mat v0.0.0-20250211092714-8af2983d1854 h1:AByCFN8FkJjDzgn2urUUajDhXZ/DT4NPqloBgKdw/s8=
 github.com/satoshin-des/glal/mat v0.0.0-20250211092714-8af2983d1854/go.mod h1:f3lRDjlU4rIrKP0+DHgM7YaekwfvWFhRSoMaNt96GjE=
 github.com/satoshin-des/glal/vec v0.0.0-20250211092714-8af2983d1854 h1:5GKUTtDovu5sBn7kqwBV66hDENA83UB6yunOzjtPbQE=
