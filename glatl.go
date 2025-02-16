@@ -6,3 +6,5 @@ type Lattice struct {
 	NumCols int
 	Basis   [][]int64
 }
+
+var maxLoop int = 10

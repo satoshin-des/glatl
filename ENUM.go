@@ -8,7 +8,9 @@ import (
 )
 
 // ENUM returns a lattice vector whose norm is lesser than or equal to R on lattice spaned by b
-func ENUM(mu mat.Matrix, gsoB vec.Vector, R float64, rho vec.Vector) vec.Vector {
+//
+// N. Gama, P. Q. Nguyen, O. Regev. Lattice enumeration using extreme pruning.(2010)
+func ENUM(mu mat.Matrix, gsoB vec.Vector, R float64) vec.Vector {
 	n := mu.NumRows
 	var temp float64
 	var lastNonzero int = 0
@@ -17,8 +19,8 @@ func ENUM(mu mat.Matrix, gsoB vec.Vector, R float64, rho vec.Vector) vec.Vector 
 	w := vec.ZeroVec(n)
 	v := vec.ZeroVec(n)
 	c := vec.ZeroVec(n)
+	rho := vec.ZeroVec(n + 1)
 	sigma := mat.ZeroMat(n+1, n)
-	vec.SetZero(rho)
 
 	v.At[0] = 1
 	for i := 0; i < n; i++ {
