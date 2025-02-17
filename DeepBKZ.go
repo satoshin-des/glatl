@@ -6,12 +6,10 @@ import (
 	"github.com/satoshin-des/glal/vec"
 )
 
-// BKZ computes "BKZ-reduced" basis without MLLL to abord faster
+// DeepBKZ
 //
 // panic if delta < 1/4 or delta > 1 or if beta <= 2 or beta > dim(b)
-//
-// C. P. Schnorr, M. Euchner. Lattice basis reduction: Improved practical algorithms and solving subset sum problem.(1994)
-func BKZ(b Lattice, beta int, delta float64) {
+func DeepBKZ(b Lattice, beta int, delta float64) {
 	if delta < 0.25 || delta > 1 {
 		panic("reduction parameter must be in [1/4, 1]")
 	}
@@ -32,8 +30,8 @@ func BKZ(b Lattice, beta int, delta float64) {
 
 	var k int = 0
 	var l int
-	var h int
 	var bkzTours int = 0
+	var h int
 
 	for z := 0; z < b.NumRows-1; {
 		if maxLoop > 0 && bkzTours >= maxLoop {
@@ -101,7 +99,7 @@ func BKZ(b Lattice, beta int, delta float64) {
 			z++
 		}
 
-		partLLL(b, delta, h)
+		partDeepLLL(b, delta, h)
 		gsoB, mu = GSO(b)
 	}
 }
