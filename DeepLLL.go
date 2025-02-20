@@ -11,6 +11,7 @@ func DeepLLL(b Lattice, delta float64) {
 	}
 
 	var temp float64
+
 	gsoB, mu := GSO(b)
 
 	for k := 1; k < b.NumRows; {
@@ -30,7 +31,7 @@ func DeepLLL(b Lattice, delta float64) {
 			} else {
 				DeepIns(b, i, k)
 
-				gsoB, mu = GSO(b)
+				updateDeepInsGSO(i, k, gsoB, mu, b)
 
 				if i < 1 {
 					k = 0

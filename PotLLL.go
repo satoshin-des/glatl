@@ -42,7 +42,8 @@ func PotLLL(b Lattice, delta float64) {
 		if delta > pMin {
 			DeepIns(b, k, l)
 
-			gsoB, mu = GSO(b)
+			updateDeepInsGSO(k, l, gsoB, mu, b)
+
 			l = k
 		} else {
 			l++
