@@ -25,8 +25,7 @@ func partDeepLLL(b Lattice, delta float64, n int) {
 				i++
 			} else {
 				DeepIns(b, i, k)
-
-				gsoB, mu = GSO(b)
+				updateDeepInsGSO(i, k, gsoB, mu, b)
 
 				if i < 1 {
 					k = 0
