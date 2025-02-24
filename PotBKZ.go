@@ -68,6 +68,7 @@ func PotBKZ(b Lattice, beta int, delta float64) {
 					for l := 0; l < b.NumCols; l++ {
 						b.Basis[i+j-1][l] = int64(w.At[l])
 					}
+					DeepIns(b, j, i+j-1)
 					break
 				}
 			}

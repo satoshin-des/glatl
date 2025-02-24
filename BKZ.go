@@ -94,6 +94,7 @@ func BKZ(b Lattice, beta int, delta float64) {
 					for j := 0; j < b.NumCols; j++ {
 						b.Basis[i+k-1][j] = int64(shortestVec.At[j])
 					}
+					DeepIns(b, k, i+k-1)
 					break
 				}
 			}

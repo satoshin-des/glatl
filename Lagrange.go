@@ -5,6 +5,8 @@ import "math"
 // Lagrange computes Lagrange reduced basis
 //
 // panic if dimension of b is not 2
+//
+// J- L. Lagrange. Recherches d'arithmetique. (1773)
 func Lagrange(b Lattice) {
 	if b.NumRows != 2 {
 		panic("2 dimensional lattice only can be Lagrange-reduced")

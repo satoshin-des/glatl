@@ -6,16 +6,16 @@ import (
 	"github.com/satoshin-des/glal/vec"
 )
 
-// DeepBKZ
+// HKZ computes "HKZ-reduced" basis without MLLL to abord faster
 //
-// panic if delta < 1/4 or delta > 1 or if beta <= 2 or beta > dim(b)
-func DeepBKZ(b Lattice, beta int, delta float64) {
+// panic if delta < 1/4 or delta > 1
+//
+// C. P. Schnorr, M. Euchner. Lattice basis reduction: Improved practical algorithms and solving subset sum problem.(1994)
+// A. Korkine, G. Zolotareff. Sur les formes quadratiques positives ternaires. (1872)
+// A. Korkine, G. Zolotareff. Sur les formes quadratiques. (1873)
+func HKZ(b Lattice, delta float64) {
 	if delta < 0.25 || delta > 1 {
 		panic("reduction parameter must be in [1/4, 1]")
-	}
-
-	if beta <= 1 || beta > b.NumRows {
-		panic("block size is invalid. block size must be in [2, dim(b)].")
 	}
 
 	var d int
@@ -30,8 +30,8 @@ func DeepBKZ(b Lattice, beta int, delta float64) {
 
 	var k int = 0
 	var l int
-	var bkzTours int = 0
 	var h int
+	var bkzTours int = 0
 
 	for z := 0; z < b.NumRows-1; {
 		if maxLoop > 0 && bkzTours >= maxLoop {
@@ -45,8 +45,8 @@ func DeepBKZ(b Lattice, beta int, delta float64) {
 		}
 		k++
 
-		if k+beta-1 < b.NumRows {
-			l = k + beta - 1
+		if k+b.NumRows-1 < b.NumRows {
+			l = k + b.NumRows - 1
 		} else {
 			l = b.NumRows
 		}
@@ -100,7 +100,7 @@ func DeepBKZ(b Lattice, beta int, delta float64) {
 			z++
 		}
 
-		partDeepLLL(b, delta, h)
+		partLLL(b, delta, h)
 		gsoB, mu = GSO(b)
 	}
 }
