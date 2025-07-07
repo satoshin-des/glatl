@@ -7,4 +7,4 @@ type Lattice struct {
 	Basis   [][]int64
 }
 
-var maxLoop int = 10
+var maxLoop int = 1000

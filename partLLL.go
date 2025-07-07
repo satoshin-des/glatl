@@ -1,13 +1,13 @@
 package glatl
 
 // partLLL computes partially LLL-reduced basis
-func partLLL(b Lattice, delta float64, n int) {
+func partLLL(b Lattice, delta float64, start int, n int) {
 	var tempInt int64
 	var tempFloat, nu float64
 
 	gsoB, mu := GSO(b)
 
-	for k := 1; k < n; {
+	for k := start; k < n; {
 		for j := k - 1; j > -1; j-- {
 			PartSize(b, mu, k, j)
 		}

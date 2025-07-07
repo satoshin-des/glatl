@@ -1,7 +1,7 @@
 package glatl
 
 // partDeepLLL computes partially DeepLLL-reduced basis
-func partDeepLLL(b Lattice, delta float64, n int) {
+func partDeepLLL(b Lattice, delta float64, start int, n int) {
 	if delta < 0.25 || delta > 1 {
 		panic("reduction parameter must be in [1/4, 1]")
 	}
@@ -9,7 +9,7 @@ func partDeepLLL(b Lattice, delta float64, n int) {
 	var temp float64
 	gsoB, mu := GSO(b)
 
-	for k := 1; k < n; {
+	for k := start; k < n; {
 		for j := k - 1; j > -1; j-- {
 			PartSize(b, mu, k, j)
 		}

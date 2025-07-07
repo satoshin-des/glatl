@@ -10,11 +10,11 @@ import (
 // ENUM returns a lattice vector whose norm is lesser than or equal to R on lattice spaned by b
 //
 // N. Gama, P. Q. Nguyen, O. Regev. Lattice enumeration using extreme pruning.(2010)
-func ENUM(mu mat.Matrix, gsoB vec.Vector, R float64) vec.Vector {
-	n := mu.NumRows
+func LocalENUM(mu mat.Matrix, gsoB vec.Vector, R float64, start int, end int) vec.Vector {
+	var n int = end - start
+	var hasSolution bool = false
 	var temp float64
 	var lastNonzero int = 0
-	var hasSolution bool = false
 
 	r := vec.ZeroVec(n + 1)
 	w := vec.ZeroVec(n)
@@ -30,9 +30,10 @@ func ENUM(mu mat.Matrix, gsoB vec.Vector, R float64) vec.Vector {
 	}
 
 	for k := 0; ; {
-		temp = float64(v.At[k]) - c.At[k]
+		//println("k=", k)
+		temp = v.At[k] - c.At[k]
 		temp *= temp
-		rho.At[k] = rho.At[k+1] + temp*gsoB.At[k]
+		rho.At[k] = rho.At[k+1] + temp*gsoB.At[k+start]
 		if rho.At[k] <= R {
 			if k == 0 {
 				hasSolution = true
@@ -46,7 +47,7 @@ func ENUM(mu mat.Matrix, gsoB vec.Vector, R float64) vec.Vector {
 					r.At[k] = r.At[k+1]
 				}
 				for i := int(r.At[k]); i > k; i-- {
-					sigma.At[i][k] = sigma.At[i+1][k] + mu.At[i][k]*v.At[i]
+					sigma.At[i][k] = sigma.At[i+1][k] + mu.At[i+start][k+start]*v.At[i]
 				}
 				c.At[k] = -sigma.At[k+1][k]
 				v.At[k] = math.Round(c.At[k])

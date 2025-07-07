@@ -17,18 +17,5 @@ func SolveSVP(b Lattice) vec.Vector {
 		}
 	}
 
-	enumVec := vec.ZeroVec(b.NumRows)
-	oldEnumVec := vec.ZeroVec(b.NumRows)
-
-	for R := gsoB.At[0]; ; R *= 0.9801 {
-		for i := 0; i < b.NumRows; i++ {
-			oldEnumVec.At[i] = enumVec.At[i]
-		}
-
-		enumVec = ENUM(mu, gsoB, R)
-
-		if vec.IsZero(enumVec) {
-			return glal.Mul(oldEnumVec, basisMat)
-		}
-	}
+	return glal.Mul(ENUM(mu, gsoB, gsoB.At[0]), basisMat)
 }
